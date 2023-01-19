@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Car;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CarFactory extends Factory
 {
+
+    protected $model = Car::class;
     /**
      * Define the model's default state.
      *
@@ -14,7 +17,10 @@ class CarFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'vehicle_make' => $this->faker->name(),
+            'vehicle_model' => $this->faker->name(),
+            'model_year' => $this->faker->dateTimeThisDecade(),
+            'passenger_capacity' => $this->faker->numberBetween(1, 11)
         ];
     }
 }

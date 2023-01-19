@@ -15,9 +15,9 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('id_number', 13)
+            $table->bigInteger('id_number')
                     ->unique();
-            $table->string('phone_number', 10)
+            $table->bigInteger('phone_number')
                     ->unique();
             $table->timestamps();
         });
