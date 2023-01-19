@@ -15,8 +15,10 @@ class CreateDriverCarsTable extends Migration
     {
         Schema::create('driver_cars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('driver_id')->unique();
-            $table->foreignId('car_id')->unique();
+            $table->foreignId('driver_id')->unique()
+                ->constrained('drivers');
+            $table->foreignId('car_id')->unique()
+                ->constrained('cars');
             $table->string('license_plate', 7)->unique();
             $table->boolean('insured');
             $table->date('last_service');

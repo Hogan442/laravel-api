@@ -16,7 +16,8 @@ class CreateDetailsTable extends Migration
         Schema::create('details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('driver_id')
-                    ->unique();
+                    ->unique()
+                    ->constrained('drivers');
             $table->string('home_address');
             $table->string('first_name');
             $table->string('last_name');
