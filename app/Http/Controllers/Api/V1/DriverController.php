@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreDetailRequest;
-use App\Http\Requests\UpdateDetailRequest;
-use App\Models\Detail;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreDriverRequest;
+use App\Http\Requests\UpdateDriverRequest;
+use App\Models\Driver;
 
-class DetailController extends Controller
+class DriverController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +17,7 @@ class DetailController extends Controller
     public function index()
     {
         //
+        return Driver::all(); 
     }
 
     /**
@@ -31,10 +33,10 @@ class DetailController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreDetailRequest  $request
+     * @param  \App\Http\Requests\StoreDriverRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreDetailRequest $request)
+    public function store(StoreDriverRequest $request)
     {
         //
     }
@@ -42,10 +44,10 @@ class DetailController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Detail  $detail
+     * @param  \App\Models\Driver  $driver
      * @return \Illuminate\Http\Response
      */
-    public function show(Detail $detail)
+    public function show(Driver $driver)
     {
         //
     }
@@ -53,10 +55,10 @@ class DetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Detail  $detail
+     * @param  \App\Models\Driver  $driver
      * @return \Illuminate\Http\Response
      */
-    public function edit(Detail $detail)
+    public function edit(Driver $driver)
     {
         //
     }
@@ -64,11 +66,11 @@ class DetailController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateDetailRequest  $request
-     * @param  \App\Models\Detail  $detail
+     * @param  \App\Http\Requests\UpdateDriverRequest  $request
+     * @param  \App\Models\Driver  $driver
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDetailRequest $request, Detail $detail)
+    public function update(UpdateDriverRequest $request, Driver $driver)
     {
         //
     }
@@ -76,10 +78,10 @@ class DetailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Detail  $detail
+     * @param  \App\Models\Driver  $driver
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Detail $detail)
+    public function destroy(Driver $driver)
     {
         //
     }

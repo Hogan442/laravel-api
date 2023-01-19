@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Storedriver_carsRequest;
-use App\Http\Requests\Updatedriver_carsRequest;
-use App\Models\driver_cars;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreDetailRequest;
+use App\Http\Requests\UpdateDetailRequest;
+use App\Models\Detail;
 
-class DriverCarsController extends Controller
+class DetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +32,10 @@ class DriverCarsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Storedriver_carsRequest  $request
+     * @param  \App\Http\Requests\StoreDetailRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storedriver_carsRequest $request)
+    public function store(StoreDetailRequest $request)
     {
         //
     }
@@ -42,10 +43,10 @@ class DriverCarsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\driver_cars  $driver_cars
+     * @param  \App\Models\Detail  $detail
      * @return \Illuminate\Http\Response
      */
-    public function show(driver_cars $driver_cars)
+    public function show(Detail $detail)
     {
         //
     }
@@ -53,10 +54,10 @@ class DriverCarsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\driver_cars  $driver_cars
+     * @param  \App\Models\Detail  $detail
      * @return \Illuminate\Http\Response
      */
-    public function edit(driver_cars $driver_cars)
+    public function edit(Detail $detail)
     {
         //
     }
@@ -64,11 +65,11 @@ class DriverCarsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Updatedriver_carsRequest  $request
-     * @param  \App\Models\driver_cars  $driver_cars
+     * @param  \App\Http\Requests\UpdateDetailRequest  $request
+     * @param  \App\Models\Detail  $detail
      * @return \Illuminate\Http\Response
      */
-    public function update(Updatedriver_carsRequest $request, driver_cars $driver_cars)
+    public function update(UpdateDetailRequest $request, Detail $detail)
     {
         //
     }
@@ -76,10 +77,10 @@ class DriverCarsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\driver_cars  $driver_cars
+     * @param  \App\Models\Detail  $detail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(driver_cars $driver_cars)
+    public function destroy(Detail $detail)
     {
         //
     }
