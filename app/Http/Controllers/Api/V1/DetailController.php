@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDetailRequest;
 use App\Http\Requests\UpdateDetailRequest;
+use App\Http\Resources\V1\DetailCollection;
+use App\Http\Resources\V1\DetailResource;
 use App\Models\Detail;
 
 class DetailController extends Controller
@@ -17,6 +19,7 @@ class DetailController extends Controller
     public function index()
     {
         //
+        return new DetailCollection(Detail::all());
     }
 
     /**
@@ -49,6 +52,7 @@ class DetailController extends Controller
     public function show(Detail $detail)
     {
         //
+        return new DetailResource($detail);
     }
 
     /**

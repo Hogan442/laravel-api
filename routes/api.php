@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\DetailController;
 use App\Http\Controllers\Api\V1\DriverController;
+use App\Http\Controllers\Api\V1\CarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('drivers', DriverController::class);
     Route::apiResource('details', DetailController::class);
+    Route::apiResource('cars', CarController::class);
     
 });
  

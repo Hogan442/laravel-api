@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
+use App\Http\Resources\V1\CarCollection;
+use App\Http\Resources\V1\CarResource;
 use App\Models\Car;
 use App\Http\Controllers\Controller;
 
@@ -17,6 +19,7 @@ class CarController extends Controller
     public function index()
     {
         //
+        return new CarCollection(Car::all());
     }
 
     /**
@@ -49,6 +52,7 @@ class CarController extends Controller
     public function show(Car $car)
     {
         //
+        return new CarResource($car);
     }
 
     /**

@@ -5,19 +5,31 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDriverRequest;
 use App\Http\Requests\UpdateDriverRequest;
+use App\Http\Resources\V1\DriverCollection;
 use App\Models\Driver;
+use App\Http\Resources\V1\DriverResource;
+use Illuminate\Support\Facades\Request;
 
 class DriverController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return Driver::all(); 
+
+        // ToDo
+
+        // $filter = new DriverQuery();
+        // $queryItems = $filter->transform($request);
+
+        
+
+        return new DriverCollection(Driver::all()); 
     }
 
     /**
@@ -50,6 +62,7 @@ class DriverController extends Controller
     public function show(Driver $driver)
     {
         //
+        return new DriverResource($driver);
     }
 
     /**

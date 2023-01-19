@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Driver;
 
 
 class DriverFactory extends Factory
@@ -20,8 +21,8 @@ class DriverFactory extends Factory
     {
         
         return [
-            'id_number' => $this->faker->unique()->randomNumber(13),
-            'phone_number' => $this->faker->unique()->phoneNumber()
+            'id_number' => $this->faker->unique()->randomNumber(7),
+            'phone_number' => $this->faker->unique()->randomNumber(8)
         ];
     }
 }
