@@ -27,7 +27,7 @@ class DriverController extends Controller
         // $filter = new DriverQuery();
         // $queryItems = $filter->transform($request);
 
-        
+        // $drivers = Driver::with('')
 
         return new DriverCollection(Driver::all()); 
     }
