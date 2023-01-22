@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDriverRequest;
 use App\Http\Requests\UpdateDriverRequest;
-use App\Http\Resources\V1\DriverCollection;
+use App\Http\Resources\V1\DriverCarResource;
 use App\Models\Driver;
 use App\Http\Resources\V1\DriverResource;
+use App\Models\DriverCars;
 use Illuminate\Support\Facades\Request;
 
 class DriverController extends Controller
@@ -29,7 +30,10 @@ class DriverController extends Controller
 
         // $drivers = Driver::with('')
 
-        return new DriverCollection(Driver::all()); 
+
+        $drivers = Driver::with('detail')->get();
+
+        return DriverResource::collection($drivers); 
     }
 
     /**
@@ -87,6 +91,8 @@ class DriverController extends Controller
     {
         //
     }
+
+    
 
     /**
      * Remove the specified resource from storage.

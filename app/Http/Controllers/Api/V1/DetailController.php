@@ -19,6 +19,7 @@ class DetailController extends Controller
     public function index()
     {
         //
+        
         return new DetailCollection(Detail::all());
     }
 

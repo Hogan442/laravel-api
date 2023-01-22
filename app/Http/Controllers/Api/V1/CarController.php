@@ -6,8 +6,11 @@ use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
 use App\Http\Resources\V1\CarCollection;
 use App\Http\Resources\V1\CarResource;
+use App\Http\Resources\V1\DriverCarResource;
 use App\Models\Car;
+use App\Models\Driver;
 use App\Http\Controllers\Controller;
+use App\Models\DriverCars;
 
 class CarController extends Controller
 {
@@ -76,6 +79,12 @@ class CarController extends Controller
     public function update(UpdateCarRequest $request, Car $car)
     {
         //
+    }
+
+    public function driversVehicle($id) {
+        
+        return (DriverCarResource::collection(DriverCars::all()->where('car_id', '=', $id)))->first();
+        
     }
 
     /**
