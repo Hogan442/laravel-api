@@ -13,7 +13,7 @@ class UpdateDetailRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,28 @@ class UpdateDetailRequest extends FormRequest
      */
     public function rules()
     {
+
+        $method = $this->method();
+
+        if ($method == 'PUT') {
+
+            return [
+                'driver_id' => ['required'],
+                'home_address' => ['required'],
+                'first_name' => ['required'],
+                'last_name' => ['required'],
+                'license_type' => ['required'],
+                'last_trip' => ['required']
+            ];
+        }
+
         return [
-            //
+            'driver_id' => ['sometimes','required'],
+            'home_address' => ['sometimes','required'],
+            'first_name' => ['sometimes','required'],
+            'last_name' => ['sometimes','required'],
+            'license_type' => ['sometimes','required'],
+            'last_trip' => ['sometimes','required']
         ];
     }
 }

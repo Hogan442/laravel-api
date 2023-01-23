@@ -89,7 +89,7 @@ class DriverController extends Controller
      */
     public function update(UpdateDriverRequest $request, Driver $driver)
     {
-        //
+        $driver->update($request->all());
     }
 
     

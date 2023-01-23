@@ -79,11 +79,12 @@ class CarController extends Controller
     public function update(UpdateCarRequest $request, Car $car)
     {
         //
+
     }
 
     public function driversVehicle($id) {
         
-        return (DriverCarResource::collection(DriverCars::all()->where('car_id', '=', $id)))->first();
+        return (DriverCarResource::collection(DriverCars::all()->where('car_id', '=', $id)));
         
     }
 

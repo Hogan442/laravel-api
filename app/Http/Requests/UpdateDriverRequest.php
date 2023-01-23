@@ -13,7 +13,7 @@ class UpdateDriverRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,19 @@ class UpdateDriverRequest extends FormRequest
      */
     public function rules()
     {
+        $method = $this->method();
+
+        if($method == 'PUT') {
+
+            return [
+                'id_number' => ['required'],
+                'phone_number' => ['required']
+            ];
+        }
+
         return [
-            //
+            'id_number' => ['sometimes', 'required'],
+            'phone_number' => ['sometimes', 'required']
         ];
     }
 }

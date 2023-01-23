@@ -26,8 +26,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('drivers', DriverController::class);
     Route::apiResource('details', DetailController::class);
     Route::apiResource('cars', CarController::class);
-
     Route::get('drivers/{id}/vehicles', 'App\Http\Controllers\Api\V1\CarController@driversVehicle');
+    Route::patch('drivers/{id}/details', 'App\Http\Controllers\Api\V1\DetailController@updateDriversDetails');
     
 });
  
