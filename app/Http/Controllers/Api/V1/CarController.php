@@ -79,6 +79,13 @@ class CarController extends Controller
     public function update(UpdateCarRequest $request, Car $car)
     {
         //
+    }
+
+    public function updateCarDetails(UpdateCarRequest $request, $id) {
+        $car = DriverCars::with('car')->where('car_id', '=', $id);
+
+        $car->update($request->all());
+
 
     }
 

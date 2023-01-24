@@ -13,7 +13,7 @@ class UpdateCarRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,23 @@ class UpdateCarRequest extends FormRequest
      */
     public function rules()
     {
+
+        $method = $this->method();
+
+        if ($method == 'PUT') {
+            return [
+                'vehicle_make' => ['required'],
+                'vehicle_model' => ['required'],
+                'model_year' => ['required'],
+                'passenger_capacity' => ['required']
+            ];
+        }
+
         return [
-            //
+            'vehicle_make' => ['sometimes','required'],
+            'vehicle_model' => ['sometimes','required'],
+            'model_year' => ['sometimes','required'],
+            'passenger_capacity' => ['sometimes','required']
         ];
     }
 }

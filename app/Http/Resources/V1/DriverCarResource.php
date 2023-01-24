@@ -19,7 +19,6 @@ class DriverCarResource extends JsonResource
         $vehicle = CarResource::collection(Car::all()->where('id', '=', $this->car_id))->first();
 
         return [
-            // 'driver_id' => $this->driver_id,
             'id'=>$this->car_id,
             'license_plate' => $this->license_plate,
             'vehicle_make' => $vehicle->vehicle_make,

@@ -28,14 +28,14 @@ class UpdateDriverRequest extends FormRequest
         if($method == 'PUT') {
 
             return [
-                'id_number' => ['required'],
-                'phone_number' => ['required']
+                'id_number' => ['required|int|max:13'],
+                'phone_number' => ['required|int|max:13']
             ];
         }
 
         return [
-            'id_number' => ['sometimes', 'required'],
-            'phone_number' => ['sometimes', 'required']
+            'id_number' => ['sometimes', 'required|int|max:13'],
+            'phone_number' => ['sometimes', 'required|int|max:13']
         ];
     }
 }

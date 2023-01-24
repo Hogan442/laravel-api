@@ -13,7 +13,7 @@ class StoreDriverRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreDriverRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_number' => ['required'],
+            'phone_number' => ['required']
         ];
     }
 }

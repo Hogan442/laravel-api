@@ -17,7 +17,8 @@ class CreateDetailsTable extends Migration
             $table->id();
             $table->foreignId('driver_id')
                     ->unique()
-                    ->constrained('drivers');
+                    ->constrained('drivers')
+                    ->cascadeOnDelete();
             $table->string('home_address');
             $table->string('first_name');
             $table->string('last_name');

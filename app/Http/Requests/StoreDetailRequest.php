@@ -13,7 +13,7 @@ class StoreDetailRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class StoreDetailRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+//            'driver_id' => ['required'],
+            'home_address'  => ['required'],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'license_type' => ['required'],
+//            'last_trip'
         ];
     }
 }
