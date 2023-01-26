@@ -13,7 +13,7 @@ class Storedriver_carsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,10 @@ class Storedriver_carsRequest extends FormRequest
     {
         return [
             //
+            'insured' => ['required', 'boolean'],
+            'last_service' => ['date_format:Y-m-d'],
+            'license_plate' => ['required', 'string', 'min:7'],
+            'driver_id' => ['required', 'integer']
         ];
     }
 }

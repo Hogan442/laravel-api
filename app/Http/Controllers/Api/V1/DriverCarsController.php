@@ -39,6 +39,8 @@ class DriverCarsController extends Controller
     public function store(Storedriver_carsRequest $request)
     {
         //
+        $data = $request->all();
+        DriverCars::create($data);
     }
 
     /**

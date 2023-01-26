@@ -43,7 +43,15 @@ class CarController extends Controller
      */
     public function store(StoreCarRequest $request)
     {
-        //
+        $data = $request->all();
+        $message = 'Vehicle was created!';
+
+        $car = Car::create($data);
+        $drivers_car = new DriverCars($data);
+        $drivers_car->car_id = $car->id;
+        $drivers_car->save();
+    
+        return response()->success($data, $message);
     }
 
     /**
@@ -55,7 +63,10 @@ class CarController extends Controller
     public function show(Car $car)
     {
         //
-        return new CarResource($car);
+        $data = new CarResource($car);
+
+
+        return response()->success($data);
     }
 
     /**
@@ -82,9 +93,14 @@ class CarController extends Controller
     }
 
     public function updateCarDetails(UpdateCarRequest $request, $id) {
-        $car = DriverCars::with('car')->where('car_id', '=', $id);
 
+        $car = Car::find($id);
         $car->update($request->all());
+
+        $drivers_car = DriverCars::with('car')->where('car_id', '=', $id);
+        $drivers_car->update($request->all());
+
+    
 
 
     }

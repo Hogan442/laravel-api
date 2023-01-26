@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('details', DetailController::class);
     Route::get('drivers/{id}/vehicles', 'App\Http\Controllers\Api\V1\CarController@driversVehicle');
     Route::patch('drivers/{id}/details', 'App\Http\Controllers\Api\V1\DetailController@updateDriversDetails');
-    Route::delete('drivers/{id}/details', 'App\Http\Controllers\Api\V1\DetailController@updateDriversDetails');
+    Route::delete('drivers/{id}/details', 'App\Http\Controllers\Api\V1\DetailController@deleteDriversDetails');
     Route::delete('vehicle/{id}', 'App\Http\Controllers\Api\V1\DriverCarsController@deleteCarDetails');
-//    Route::post('drivers', 'App\Http\Controllers\Api\V1\DriverController@store');
+    Route::post('vehicle/', 'App\Http\Controllers\Api\V1\CarController@store');
 });

@@ -28,18 +28,18 @@ class UpdateCarRequest extends FormRequest
 
         if ($method == 'PUT') {
             return [
-                'vehicle_make' => ['required'],
-                'vehicle_model' => ['required'],
-                'model_year' => ['required'],
-                'passenger_capacity' => ['required']
+                'vehicle_make' => ['required', 'string'],
+                'vehicle_model' => ['required', 'string'],
+                'model_year' => ['required', 'integer', 'min:2010', 'max:2023'],
+                'passenger_capacity' => ['required', 'integer', 'min:1', 'max:16']
             ];
         }
 
         return [
-            'vehicle_make' => ['sometimes','required'],
-            'vehicle_model' => ['sometimes','required'],
-            'model_year' => ['sometimes','required'],
-            'passenger_capacity' => ['sometimes','required']
+            'vehicle_make' => ['sometimes','required', 'string'],
+            'vehicle_model' => ['sometimes','required', 'string'],
+            'model_year' => ['sometimes','required', 'integer', 'min:2010', 'max:2023'],
+            'passenger_capacity' => ['sometimes','required', 'integer', 'min:1', 'max:16']
         ];
     }
 }

@@ -70,18 +70,6 @@ class DetailController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateDetailRequest  $request
-     * @param  \App\Models\Detail  $detail
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateDetailRequest $request, Detail $detail)
-    {
-        //
-    }
-
 
     /**
      * Uodates the details of one individual driver
@@ -97,6 +85,8 @@ class DetailController extends Controller
         $detail->update($request->all());
 
     }
+
+    public function deleteDriversDetails()
 
     /**
      * Remove the specified resource from storage.

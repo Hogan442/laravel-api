@@ -52,12 +52,10 @@ class DriverController extends Controller
      */
     public function store(StoreDriverRequest $request)
     {
+        $data = $request->all();
         try
         {
-
             // Create new Driver in the Database
-            $data = $request->all();
-
             $message = 'Driver account created!';
             $driver = Driver::create($data);
 
