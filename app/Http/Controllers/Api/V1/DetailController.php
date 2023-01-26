@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDetailRequest;
 use App\Http\Requests\UpdateDetailRequest;
 use App\Http\Resources\V1\DetailCollection;
 use App\Http\Resources\V1\DetailResource;
+use App\Models\Driver;
 use App\Models\Detail;
 
 class DetailController extends Controller
@@ -18,10 +19,11 @@ class DetailController extends Controller
      */
     public function index()
     {
-        //
-
-        return new DetailCollection(Detail::all());
+        $data = new DetailCollection(Detail::all());
+        return response()->success($data);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -33,6 +35,8 @@ class DetailController extends Controller
         //
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -42,10 +46,12 @@ class DetailController extends Controller
     public function store(StoreDetailRequest $request)
     {
         // Store new Drivers Details
-        Detail::create($request->all());
+        $data = Detail::create($request->all());
 
-//        return response()->success($request->all());
+       return response()->success($data);
     }
+
+
 
     /**
      * Display the specified resource.
@@ -56,8 +62,11 @@ class DetailController extends Controller
     public function show(Detail $detail)
     {
         //
-        return new DetailResource($detail);
+        $data = new DetailResource($detail);
+        return response()->success($data);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -69,6 +78,7 @@ class DetailController extends Controller
     {
         //
     }
+
 
 
     /**
@@ -86,16 +96,21 @@ class DetailController extends Controller
 
     }
 
-    public function deleteDriversDetails()
+
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Detail  $detail
-     * @return \Illuminate\Http\Response
+     * Delete the details that belongs to the driver with the id of @param mixed $id
+     * @param mixed $id
+     * @return mixed
      */
-    public function destroy(Detail $detail)
-    {
-        //
+    public function deleteDriversDetails($id) {
+        try{
+            $driver = Driver::find($id);
+            $detail = $driver->detail;
+            $detail->delete();
+            return response()->success([], 'deleted');
+        } catch(\Exception $exception) {
+            return response()->error('Not deleted');
+        }
     }
 }

@@ -32,6 +32,8 @@ class DriverController extends Controller
         }
     }
 
+    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,10 +41,11 @@ class DriverController extends Controller
      */
     public function create()
     {
-        //validate the drivers data
-        return \response()->success([]);
+        
 
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -72,9 +75,9 @@ class DriverController extends Controller
             $message = 'Vehicle could not be created.';
             return response()->error($message, $data);
         }
-
-
     }
+
+
 
     /**
      * Display the specified resource.
@@ -101,6 +104,8 @@ class DriverController extends Controller
 
     }
 
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -111,6 +116,8 @@ class DriverController extends Controller
     {
         //
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -134,6 +141,7 @@ class DriverController extends Controller
     }
 
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -144,16 +152,16 @@ class DriverController extends Controller
     public function destroy(UpdateDriverRequest $request, $id)
     {
         // Delete the Driver
-        try{
-            $driver = Driver::all()->where('id', '=', $id)->first();
+        $driver = Driver::find($id);
+
+        if($driver==null) {
+            $message = 'Could not delete the driver';
+
+            return response()->error($message, $request->all());
+        } else {
             $driver->delete();
             return response()->success($request->all());
-        } catch (\Exception $exception) {
-            $message = 'Could not delete the driver';
-            return response()->error($message, $request->all());
         }
-
-
-        // Json Response
+    
     }
 }

@@ -22,8 +22,11 @@ class CarController extends Controller
     public function index()
     {
         //
-        return new CarCollection(Car::all());
+        $data = new CarCollection(Car::all());
+        return response()->success($data);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,6 +37,8 @@ class CarController extends Controller
     {
         //
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,6 +59,8 @@ class CarController extends Controller
         return response()->success($data, $message);
     }
 
+
+
     /**
      * Display the specified resource.
      *
@@ -62,12 +69,12 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
-        //
+    
         $data = new CarResource($car);
-
-
         return response()->success($data);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -80,6 +87,8 @@ class CarController extends Controller
         //
     }
 
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -87,11 +96,6 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCarRequest $request, Car $car)
-    {
-        //
-    }
-
     public function updateCarDetails(UpdateCarRequest $request, $id) {
 
         $car = Car::find($id);
@@ -100,16 +104,34 @@ class CarController extends Controller
         $drivers_car = DriverCars::with('car')->where('car_id', '=', $id);
         $drivers_car->update($request->all());
 
-    
-
-
+        return response()->success($drivers_car, 'Cars details have been updated');
     }
 
+
+
+    /**
+     * Collection of vehicles that belongs to the driver with id = @param integer $id
+     * @param mixed $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function driversVehicle($id) {
-        
-        return (DriverCarResource::collection(DriverCars::all()->where('car_id', '=', $id)));
+
+        $driver = Driver::find($id);
+
+        if ($driver == null) {
+            return response()->error("Driver does not exist");
+        }
+
+        $detail = DriverCarResource::collection(DriverCars::all()->where('driver_id', '=', $id));
+
+        if (count($detail)==0) {
+            return response()->success($detail, 'Driver has no Cars');
+        }
+        return response()->success($detail);
         
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
