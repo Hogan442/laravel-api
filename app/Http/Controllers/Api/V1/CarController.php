@@ -12,6 +12,7 @@ use App\Models\Driver;
 use App\Http\Controllers\Controller;
 use App\Models\DriverCars;
 
+
 class CarController extends Controller
 {
     /**
@@ -59,8 +60,6 @@ class CarController extends Controller
         return response()->success($data, $message);
     }
 
-
-
     /**
      * Display the specified resource.
      *
@@ -69,7 +68,6 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
-    
         $data = new CarResource($car);
         return response()->success($data);
     }
@@ -99,6 +97,11 @@ class CarController extends Controller
     public function updateCarDetails(UpdateCarRequest $request, $id) {
 
         $car = Car::find($id);
+
+        if($car == null) {
+            return response()->error('This driver does not exist');
+        }
+
         $car->update($request->all());
 
         $drivers_car = DriverCars::with('car')->where('car_id', '=', $id);

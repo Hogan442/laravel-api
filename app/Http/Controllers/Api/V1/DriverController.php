@@ -9,7 +9,6 @@ use App\Models\Detail;
 use App\Models\Driver;
 use App\Http\Resources\V1\DriverResource;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Request;
 
 class DriverController extends Controller
 {
@@ -18,18 +17,12 @@ class DriverController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        try{
-            $drivers = Driver::with('detail')->get();
-            $data = DriverResource::collection($drivers);
-            return response()->success($data);
-        } catch (\Exception $exception) {
-
-            $error_message = "Could not get all the drivers";
-            $data = $request::toArray();
-            return response()->error($error_message, $data);
-        }
+        $drivers = Driver::all();
+        $data = DriverResource::collection($drivers);
+        return response()->success($data);
+       
     }
 
     
@@ -56,6 +49,7 @@ class DriverController extends Controller
     public function store(StoreDriverRequest $request)
     {
         $data = $request->all();
+
         try
         {
             // Create new Driver in the Database
@@ -72,7 +66,7 @@ class DriverController extends Controller
         } catch (\Exception $exception) {
 
             // Error response if driver details was not correct
-            $message = 'Vehicle could not be created.';
+            $message = 'Driver could not be created.';
             return response()->error($message, $data);
         }
     }

@@ -31,7 +31,7 @@ class StoreCarRequest extends FormRequest
             'model_year' => ['required', 'integer', 'min:2010', 'max:2023'],
             'passenger_capacity' => ['required', 'integer', 'min:1', 'max:16'],
             'insured' => ['required', 'boolean'],
-            'last_service' => ['date_format:Y-m-d'],
+            'last_service' => ['date_format:Y-m-d', 'before:today'],
             'license_plate' => ['required', 'string', 'min:7'],
             'driver_id' => ['required', 'integer']
         ];

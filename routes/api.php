@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\DetailController;
-use App\Http\Controllers\Api\V1\DriverCarsController;
 use App\Http\Controllers\Api\V1\DriverController;
-use App\Http\Controllers\Api\V1\CarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +22,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::apiResource('drivers', DriverController::class);
     Route::apiResource('details', DetailController::class);
-    Route::get('drivers/{id}/vehicles', 'App\Http\Controllers\Api\V1\CarController@driversVehicle');
-    Route::patch('drivers/{id}/details', 'App\Http\Controllers\Api\V1\DetailController@updateDriversDetails');
-    Route::delete('drivers/{id}/details', 'App\Http\Controllers\Api\V1\DetailController@deleteDriversDetails');
-    Route::delete('vehicle/{id}', 'App\Http\Controllers\Api\V1\DriverCarsController@deleteCarDetails');
-    Route::post('vehicle/', 'App\Http\Controllers\Api\V1\CarController@store');
+    Route::apiResource('drivers', DriverController::class);
+    Route::post('vehicle', 'App\Http\Controllers\Api\V1\CarController@store');
+
 });
+
+Route::group(['prefix' => 'v1/drivers'], function () {
+    Route::get('{id}/vehicles', 'App\Http\Controllers\Api\V1\CarController@driversVehicle');
+    Route::patch('{id}/details', 'App\Http\Controllers\Api\V1\DetailController@updateDriversDetails');
+    Route::delete('{id}/details', 'App\Http\Controllers\Api\V1\DetailController@deleteDriversDetails');
+    
+});
+
+Route::group(['prefix' => 'v1/vehicles'], function () {
+    Route::delete('{id}', 'App\Http\Controllers\Api\V1\DriverCarsController@deleteCarDetails');
+});
+
