@@ -31,7 +31,7 @@ The following endpoints are available for use:
 - Updates the details of a specific driver record by id.
 - Request Body: 
   - home_address: string
-  - fist_name: string
+  - first_name: string
   - last_name: string
   - license_type: enum("A", "B", "C", "D") -> One of the four
 
