@@ -50,7 +50,7 @@ The following endpoints are available for use:
   - lisence_plate: string
   - vehicle_make: string
   - vehicle_model: string
-  - model_year: date(Y)
+  - model_year: date(Y-m-d)
   - insured: boolean/ 0, 1
   - last_service: date(Y-m-d)
 
@@ -64,7 +64,7 @@ The following endpoints are available for use:
   - lisence_plate: string
   - vehicle_make: string
   - vehicle_model: string
-  - model_year: date(Y)
+  - model_year: date(Y-m-d)
   - insured: boolean/ 0, 1
 
 #### DELETE /vehicle/{id}
