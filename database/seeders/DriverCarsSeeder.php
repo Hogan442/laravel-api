@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DriverCars;
 use Illuminate\Database\Seeder;
 
 class DriverCarsSeeder extends Seeder
@@ -14,5 +15,10 @@ class DriverCarsSeeder extends Seeder
     public function run()
     {
         //
+        DriverCars::factory()
+            ->count(50)
+            ->hasDrivers(50)
+            ->hasCars(50)
+            ->create();
     }
 }

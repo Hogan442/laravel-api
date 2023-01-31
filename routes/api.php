@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group([], function () {
     Route::apiResource('details', DetailController::class);
     Route::apiResource('drivers', DriverController::class);
     Route::post('vehicle', 'App\Http\Controllers\Api\V1\CarController@store');

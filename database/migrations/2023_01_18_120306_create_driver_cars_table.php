@@ -23,7 +23,7 @@ class CreateDriverCarsTable extends Migration
                 ->constrained('cars');
             $table->string('license_plate', 7)->unique();
             $table->boolean('insured');
-            $table->date('last_service');
+            $table->year('last_service');
             $table->timestamps();
         });
     }

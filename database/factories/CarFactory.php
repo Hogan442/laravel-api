@@ -19,7 +19,7 @@ class CarFactory extends Factory
         return [
             'vehicle_make' => $this->faker->name(),
             'vehicle_model' => $this->faker->name(),
-            'model_year' => $this->faker->dateTimeThisDecade(),
+            'model_year' => $this->faker->year('now'),
             'passenger_capacity' => $this->faker->numberBetween(1, 11)
         ];
     }

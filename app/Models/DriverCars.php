@@ -18,10 +18,10 @@ class DriverCars extends Model
     ];
 
     public function drivers() {
-        return $this->hasMany(Driver::class);
+        return $this->belongsTo(Driver::class, 'id', 'driver_id');
     }
 
     public function cars() {
-        return $this->hasMany(Car::class);
+        return $this->belongsTo(Car::class);
     }
 }

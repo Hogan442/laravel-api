@@ -19,8 +19,10 @@ class DriverSeeder extends Seeder
     {
         //
         Driver::factory()
-            ->count(10)
+            ->count(50)
             ->hasDetail(1)
+            ->DriverCars(1)
             ->create();
+
     }
 }
