@@ -49,6 +49,17 @@ class DriverController extends Controller
     public function store(StoreDriverRequest $request)
     {
         $data = $request->all();
+        $driver = null;
+
+
+        // If driver with this ID already exists
+        if($driver = Driver::all()->where('id', '=', $data['id_number'])) {
+            if (count($driver) != 0) {
+                $message = 'Driver already exist with this ID Number!!!.';
+                return response()->error($message, Driver::all()->where('id_number', '=', 409, $data['id_number']));
+            }
+        }
+        
 
         try
         {
@@ -61,11 +72,10 @@ class DriverController extends Controller
             $detail->driver_id = $driver->id;
             $detail->save();
 
-            return response()->success($data, $message);
+            return response()->success($data, 204, $message);
 
         } catch (\Exception $exception) {
 
-            // Error response if driver details was not correct
             $message = 'Driver could not be created.';
             return response()->error($message, $data);
         }
@@ -93,7 +103,7 @@ class DriverController extends Controller
 
             $error_message = "Could not get your driver";
             $data = [];
-            return response()->error($error_message, $data);
+            return response()->error($error_message, 400, $data);
         }
 
     }
@@ -151,7 +161,7 @@ class DriverController extends Controller
         if($driver==null) {
             $message = 'Could not delete the driver';
 
-            return response()->error($message, $request->all());
+            return response()->error($message, 400, $request->all());
         } else {
             $driver->delete();
             return response()->success($request->all());

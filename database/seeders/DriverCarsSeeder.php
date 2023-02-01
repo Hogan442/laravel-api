@@ -17,8 +17,8 @@ class DriverCarsSeeder extends Seeder
         //
         DriverCars::factory()
             ->count(50)
-            ->hasDrivers(50)
-            ->hasCars(50)
+            ->hasCars(1)
+            ->hasDrivers(1)
             ->create();
     }
 }
