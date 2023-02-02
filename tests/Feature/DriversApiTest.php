@@ -33,7 +33,7 @@ class DriversApiTest extends TestCase
      *
      * @return void
      */
-    public function test_getDrivers()
+    public function test_get_all_drivers()
     {
 
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers');
@@ -77,7 +77,68 @@ class DriversApiTest extends TestCase
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers/51');
         $response->assertStatus(200);
     }
-    
+
+    public function test_post_driver_with_invalid_phone_number() {
+
+        // To little numbers
+        $data = [
+            "id_number" => 9025199085,
+            "phone_number" => 69211881,
+            "first_name" => "Hogan",
+            "last_name" => "Fortuin",
+            "home_address" => "84, 9th Ave Leonsdale",
+            "license_type" => "A"
+        ];
+
+        $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $data);
+        $response->assertStatus(422);
+
+        // To much numbers
+        $data = [
+            "id_number" => 9025199085,
+            "phone_number" => 6921188155,
+            "first_name" => "Hogan",
+            "last_name" => "Fortuin",
+            "home_address" => "84, 9th Ave Leonsdale",
+            "license_type" => "A"
+        ];
+
+        $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $data);
+        $response->assertStatus(422);
+    }
+
+
+    public function test_post_driver_with_invalid_id_number() {
+
+        // To little numbers
+        $data = [
+            "id_number" => 902519908,
+            "phone_number" => 692118815,
+            "first_name" => "Hogan",
+            "last_name" => "Fortuin",
+            "home_address" => "84, 9th Ave Leonsdale",
+            "license_type" => "A"
+        ];
+
+        $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $data);
+        $response->assertStatus(422);
+
+        // To much numbers
+        $data = [
+            "id_number" => 90251990855,
+            "phone_number" => 692118815,
+            "first_name" => "Hogan",
+            "last_name" => "Fortuin",
+            "home_address" => "84, 9th Ave Leonsdale",
+            "license_type" => "A"
+        ];
+
+        $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $data);
+        $response->assertStatus(422);
+
+
+    }
+
 
     public function test_post_driver_twice() {
 
