@@ -24,8 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([], function () {
     Route::apiResource('details', DetailController::class);
     Route::apiResource('drivers', DriverController::class);
-    Route::post('vehicle', 'App\Http\Controllers\Api\V1\CarController@store');
 
+    // Route::post('vehicles', 'App\Http\Controllers\Api\V1\CarController@store');
+    
 });
 
 Route::group(['prefix' => 'drivers'], function () {
@@ -36,6 +37,10 @@ Route::group(['prefix' => 'drivers'], function () {
 });
 
 Route::group(['prefix' => 'vehicles'], function () {
-    Route::delete('{id}', 'App\Http\Controllers\Api\V1\DriverCarsController@deleteCarDetails');
+    
+    Route::get('/{id}', 'App\Http\Controllers\Api\V1\CarController@show');
+    Route::post('/', 'App\Http\Controllers\Api\V1\CarController@store');
+    Route::get('/', 'App\Http\Controllers\Api\V1\CarController@index');
+    Route::delete('/{id}', 'App\Http\Controllers\Api\V1\CarController@destroy');
 });
 

@@ -24,8 +24,8 @@ class StoreDriverRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_number' => ['required'],
-            'phone_number' => ['required']
+            'id_number' => ['required', 'integer'],
+            'phone_number' => ['required', 'integer']
         ];
     }
 }

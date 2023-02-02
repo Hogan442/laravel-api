@@ -23,7 +23,7 @@ class DriverCarsFactory extends Factory
             'car_id' => Car::factory(),
             'license_plate' => $this->faker->unique()->text(7),
             'insured' => $this->faker->boolean(5),
-            'last_service' => $this->faker->year('now')
+            'last_service' => $this->faker->date('Y-m-d')
         ];
     }
 }

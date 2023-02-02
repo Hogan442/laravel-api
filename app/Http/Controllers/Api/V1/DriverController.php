@@ -53,10 +53,10 @@ class DriverController extends Controller
 
 
         // If driver with this ID already exists
-        if($driver = Driver::all()->where('id', '=', $data['id_number'])) {
+        if($driver = Driver::all()->where('id_number', '=', $data['id_number'])) {
             if (count($driver) != 0) {
                 $message = 'Driver already exist with this ID Number!!!.';
-                return response()->error($message, Driver::all()->where('id_number', '=', 409, $data['id_number']));
+                return response()->error($message, 409,  Driver::all()->where('id_number', '=', $data['id_number']));
             }
         }
         
@@ -77,7 +77,7 @@ class DriverController extends Controller
         } catch (\Exception $exception) {
 
             $message = 'Driver could not be created.';
-            return response()->error($message, $data);
+            return response()->error($message, 400, $data);
         }
     }
 
@@ -134,13 +134,13 @@ class DriverController extends Controller
     {
 
         try {
-            $driver = Driver::all()->where('id', '=', $id);
+            $driver = Driver::find($id);
             $driver->update($request->all());
-            return response()->success($request->all());
+            return response()->success($request->all(), 200, "Driver has been updated");
 
         } catch (\Exception $exception){
             $message = 'Could not update the driver';
-            return response()->error($message, $request->all());
+            return response()->error($message, 409, $request->all());
         }
     }
 

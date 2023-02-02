@@ -57,7 +57,7 @@ class CarController extends Controller
         $drivers_car->car_id = $car->id;
         $drivers_car->save();
     
-        return response()->success($data, $message);
+        return response()->success($data, 202, $message);
     }
 
     /**
@@ -66,8 +66,14 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function show(Car $car)
+    public function show($id)
     {
+        $car = Car::find($id);
+        
+        if($car == null) {
+            $message = 'This vehicle does not exist';
+            return response()->error($message);
+        }
         $data = new CarResource($car);
         return response()->success($data);
     }
@@ -99,7 +105,7 @@ class CarController extends Controller
         $car = Car::find($id);
 
         if($car == null) {
-            return response()->error('This driver does not exist');
+            return response()->error('This vehicle does not exist');
         }
 
         $car->update($request->all());
@@ -107,7 +113,7 @@ class CarController extends Controller
         $drivers_car = DriverCars::with('car')->where('car_id', '=', $id);
         $drivers_car->update($request->all());
 
-        return response()->success($drivers_car, 'Cars details have been updated');
+        return response()->success($drivers_car,200,  'Cars details have been updated');
     }
 
 
@@ -128,7 +134,7 @@ class CarController extends Controller
         $detail = DriverCarResource::collection(DriverCars::all()->where('driver_id', '=', $id));
 
         if (count($detail)==0) {
-            return response()->success($detail, 'Driver has no Cars');
+            return response()->success($detail,200, 'Driver has no Cars');
         }
         return response()->success($detail);
         
@@ -142,8 +148,11 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Car $car)
+    public function destroy($id)
     {
         //
+        $car = Car::find($id);
+        $car->delete();
+        return response()->success($car);
     }
 }

@@ -91,9 +91,8 @@ class DetailController extends Controller
     public function updateDriversDetails(UpdateDetailRequest $request, $id) {
 
         $detail = Detail::with('driver')->where('driver_id', '=', $id);
-
         $detail->update($request->all());
-
+        return response()->success($request);
     }
 
 
