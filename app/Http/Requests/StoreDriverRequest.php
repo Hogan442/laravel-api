@@ -25,7 +25,11 @@ class StoreDriverRequest extends FormRequest
     {
         return [
             'id_number' => ['required', 'integer', 'min:1111111111', 'max:9999999999'],
-            'phone_number' => ['required', 'integer','min:111111111', 'max:999999999']
+            'phone_number' => ['required', 'integer','min:111111111', 'max:999999999'],
+            'home_address'  => ['required'],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'license_type' => ['required'],
         ];
     }
 }

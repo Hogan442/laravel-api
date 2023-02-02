@@ -24,12 +24,11 @@ class StoreDetailRequest extends FormRequest
     public function rules()
     {
         return [
-//            'driver_id' => ['required'],
-            'home_address'  => ['required'],
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'license_type' => ['required'],
-//            'last_trip'
+           'driver_id' => ['required', 'integer'],
+            'home_address'  => ['required', 'string'],
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
+            'license_type' => ['required', 'string'],
         ];
     }
 }
