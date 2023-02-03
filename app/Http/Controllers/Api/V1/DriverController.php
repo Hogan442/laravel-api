@@ -19,9 +19,15 @@ class DriverController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::all();
+
+        // ToDo
+        // Works but not proper
+        
+        $drivers = Driver::paginate(10);
+        // $drivers = Driver::all();
         $data = DriverResource::collection($drivers);
         return response()->success($data);
+        // return ;
        
     }
 

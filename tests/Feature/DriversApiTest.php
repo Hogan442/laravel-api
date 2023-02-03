@@ -72,6 +72,9 @@ class DriversApiTest extends TestCase
 
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers/51');
         $response->assertStatus(200);
+
+        $content = $response->decodeResponseJson();
+        // print_r(array_values(array_values($content['data'])[3])[0]);
     }
 
     public function test_post_driver_with_invalid_phone_number() {
