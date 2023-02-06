@@ -9,6 +9,7 @@ use App\Models\Detail;
 use App\Models\Driver;
 use App\Http\Resources\V1\DriverResource;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DriverController extends Controller
 {
@@ -20,14 +21,16 @@ class DriverController extends Controller
     public function index()
     {
 
-        // ToDo
-        // Works but not proper
         
-        $drivers = Driver::paginate(10);
-        // $drivers = Driver::all();
+        $drivers = Driver::all();
         $data = DriverResource::collection($drivers);
-        return response()->success($data);
-        // return ;
+        $current_page = LengthAwarePaginator::resolveCurrentPage();
+        $current_page_results = $data->slice(($current_page-1)*10, 10)->all();
+
+        $paginate_results = new LengthAwarePaginator($current_page_results, count($data), 10);
+        $paginate_results->setPath('/api/drivers');
+
+        return response()->success($paginate_results);
        
     }
 

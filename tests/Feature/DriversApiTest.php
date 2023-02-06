@@ -223,14 +223,14 @@ class DriversApiTest extends TestCase
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(204);
 
-        // $response->assertJson(
-        //     [
-        //         'status' => 'OK',
-        //         'success' => true,
-        //         'message' => "",
+        $response->assertJson(
+            [
+                'status' => '',
+                'success' => true,
+                'message' => "",
                 
-        //     ]
-        // );
+            ]
+        );
 
         // Then should fail cause Driver exists
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
