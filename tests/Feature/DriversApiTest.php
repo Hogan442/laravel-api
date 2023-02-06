@@ -40,8 +40,16 @@ class DriversApiTest extends TestCase
     {
 
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers');
-        $this->assertNotEmpty($response->json('data'));
         $response->assertStatus(200);
+
+        $response->assertJson(
+            [
+                'status' => 'OK',
+                'success' => true,
+                'message' => "",
+                
+            ]
+        );
 
     }
     public function test_get_one_driver()
@@ -51,6 +59,15 @@ class DriversApiTest extends TestCase
         $this->assertNotEmpty($response->json('data'));
         $response->assertStatus(200);
 
+        $response->assertJson(
+            [
+                'status' => 'OK',
+                'success' => true,
+                'message' => "",
+                
+            ]
+        );
+
     }
 
     public function test_get_driver_should_fail()
@@ -58,6 +75,17 @@ class DriversApiTest extends TestCase
 
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers/200');
         $response->assertStatus(400);
+
+        $response->assertJson(
+            [
+                'status' => 'ERROR',
+                'success' => false,
+                'message' => "Could not get your driver",
+                
+            ]
+        );
+
+        
     }
 
 
@@ -65,31 +93,79 @@ class DriversApiTest extends TestCase
     public function test_post_new_driver()
     {
 
-        
-
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(204);
 
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers/51');
         $response->assertStatus(200);
 
-        $content = $response->decodeResponseJson();
-        // print_r(array_values(array_values($content['data'])[3])[0]);
+        $response->assertJson(
+            [
+                'status' => 'OK',
+                'success' => true,
+                'message' => "",
+                'data' => [
+                    "id_number" => 9025199085,
+                    "phone_number" => 692118815,
+                    
+                    'details' => [
+                        'first_name' => 'Hogan',
+                        'last_name' => 'Fortuin',
+
+                    ]
+                ]
+            ]
+        );
+
+        // $content = $response->decodeResponseJson();
+        // $data = array_values($content['data'])[3];
+        // $this->assertTrue($data['first_name'] == 'Hogan');
     }
+        // print_r(array_values(array_values($content['data'])[3])[0]);
 
     public function test_post_driver_with_invalid_phone_number() {
 
-        // To little numbers
+        // Too little numbers
         $this->data['phone_number'] = 69211881;
 
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(422);
 
-        // To much numbers
+        $response->assertJson(
+            [
+                "message" => "The given data was invalid.",
+
+                "errors" => [
+            
+                    "phone_number" => [
+            
+                        "The phone number must be at least 111111111."
+            
+                    ]
+                ]
+            ]
+        );
+
+        // Too much numbers
         $this->data['phone_number'] = 6921188155;
 
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(422);
+
+        $response->assertJson(
+            [
+                "message" => "The given data was invalid.",
+
+                "errors" => [
+            
+                    "phone_number" => [
+            
+                        "The phone number must not be greater than 999999999."
+            
+                    ]
+                ]
+            ]
+        );
     }
 
 
@@ -101,11 +177,41 @@ class DriversApiTest extends TestCase
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(422);
 
+        $response->assertJson(
+            [
+                "message" => "The given data was invalid.",
+
+                "errors" => [
+            
+                    "id_number" => [
+            
+                        "The id number must be at least 1111111111."
+            
+                    ]
+                ]
+            ]
+        );
+
         // To much numbers
         $this->data['id_number'] = 90251990855;
 
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(422);
+
+        $response->assertJson(
+            [
+                "message" => "The given data was invalid.",
+
+                "errors" => [
+            
+                    "id_number" => [
+            
+                        'The id number must not be greater than 9999999999.'
+            
+                    ]
+                ]
+            ]
+        );
 
 
     }
@@ -117,6 +223,14 @@ class DriversApiTest extends TestCase
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(204);
 
+        // $response->assertJson(
+        //     [
+        //         'status' => 'OK',
+        //         'success' => true,
+        //         'message' => "",
+                
+        //     ]
+        // );
 
         // Then should fail cause Driver exists
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
