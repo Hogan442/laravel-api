@@ -19,14 +19,14 @@ class DetailFactory extends Factory
     public function definition()
     {
 
-        $driver_id = Driver::factory();
+        $driver = Driver::factory();
         return [
-             'driver_id' => $driver_id,
+             'driver_id' => $this->faker->unique()->numberBetween(1, 50),
              'home_address' => $this->faker->address(),
              'first_name' => $this->faker->firstName(),
              'last_name' => $this->faker->lastName(),
              'license_type' => $this->faker->randomElement(['A', 'B', 'C', 'D']),
-             'last_trip' => $this->faker->dateTimeThisDecade()
+             'last_trip' => $this->faker->dateTimeThisDecade('now')
         ];
     } 
 }

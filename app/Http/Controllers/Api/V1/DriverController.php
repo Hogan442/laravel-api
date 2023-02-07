@@ -25,9 +25,11 @@ class DriverController extends Controller
         $drivers = Driver::all();
         $data = DriverResource::collection($drivers);
         $current_page = LengthAwarePaginator::resolveCurrentPage();
-        $current_page_results = $data->slice(($current_page-1)*10, 10)->all();
+        $page_length = 10;
+        $current_page_results = $data->slice(($current_page-1)*$page_length, $page_length)->all();
+        // [[], [], []]
 
-        $paginate_results = new LengthAwarePaginator($current_page_results, count($data), 10);
+        $paginate_results = new LengthAwarePaginator($current_page_results, count($data), $page_length);
         $paginate_results->setPath('/api/drivers');
 
         return response()->success($paginate_results);
@@ -81,13 +83,15 @@ class DriverController extends Controller
             $detail->driver_id = $driver->id;
             $detail->save();
 
-            return response()->success($data, 204, $message);
+            
 
         } catch (\Exception $exception) {
 
             $message = 'Driver could not be created.';
             return response()->error($message, 400, $data);
         }
+
+        return response()->success($data, 204, $message);
     }
 
 

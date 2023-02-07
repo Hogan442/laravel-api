@@ -117,12 +117,7 @@ class DriversApiTest extends TestCase
             ]
         );
 
-        // $content = $response->decodeResponseJson();
-        // $data = array_values($content['data'])[3];
-        // $this->assertTrue($data['first_name'] == 'Hogan');
     }
-        // print_r(array_values(array_values($content['data'])[3])[0]);
-
     public function test_post_driver_with_invalid_phone_number() {
 
         // Too little numbers
@@ -223,18 +218,19 @@ class DriversApiTest extends TestCase
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(204);
 
+        // Then should fail cause Driver exists
+        $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
+        $response->assertStatus(409);
+
         $response->assertJson(
             [
-                'status' => '',
-                'success' => true,
-                'message' => "",
+                'status' => 'ERROR',
+                'success' => false,
+                'message' => "Driver already exist with this ID Number!!!.",
                 
             ]
         );
 
-        // Then should fail cause Driver exists
-        $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
-        $response->assertStatus(409);
     }
 
     

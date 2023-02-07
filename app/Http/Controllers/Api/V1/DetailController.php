@@ -107,9 +107,9 @@ class DetailController extends Controller
             $driver = Driver::find($id);
             $detail = $driver->detail;
             $detail->delete();
-            return response()->success([], 'deleted');
+            return response()->success([], 200, 'deleted');
         } catch(\Exception $exception) {
-            return response()->error('Not deleted');
+            return response()->error('Driver does not exist');
         }
     }
 }

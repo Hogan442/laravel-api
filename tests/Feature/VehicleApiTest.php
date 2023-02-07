@@ -25,6 +25,17 @@ class VehicleApiTest extends TestCase
         $this->artisan('migrate:reset');
     }
 
+    protected $data = [
+        'vehicle_make' => 'Honda',
+        'vehicle_model' => 'V-Tech',
+        'model_year' => 2022,
+        'passenger_capacity' => 4,
+        'insured' => true,
+        'last_service' => "2022-06-25",
+        'license_plate' => "CA80076",
+        'driver_id' => 1
+    ];
+
 
     /**
      * A basic feature test example.
@@ -38,19 +49,8 @@ class VehicleApiTest extends TestCase
     }
 
     public function test_add_new_vehicle() {
-        $data = [
-            'vehicle_make' => 'Honda',
-            'vehicle_model' => 'V-Tech',
-            'model_year' => 2022,
-            'passenger_capacity' => 4,
-            'insured' => true,
-            'last_service' => "2022-06-25",
-            'license_plate' => "CA80076",
-            'driver_id' => 1
-        ];
-
-
-        $response = $this->postJson('http://127.0.0.1:8000/api/vehicles', $data);
+        
+        $response = $this->postJson('http://127.0.0.1:8000/api/vehicles', $this->data);
         $response->assertStatus(202);
     }
 
