@@ -24,8 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([], function () {
     Route::apiResource('details', DetailController::class);
     Route::apiResource('drivers', DriverController::class);
-
-    // Route::post('vehicles', 'App\Http\Controllers\Api\V1\CarController@store');
     
 });
 

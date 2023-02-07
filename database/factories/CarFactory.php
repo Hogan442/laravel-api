@@ -17,7 +17,7 @@ class CarFactory extends Factory
     public function definition()
     {
         return [
-            'vehicle_make' => $this->faker->name(),
+            'vehicle_make' => $this->faker->randomElement(['Golf', 'Toyota', 'Bentley', 'Ford', 'Honda']),
             'vehicle_model' => $this->faker->name(),
             'model_year' => $this->faker->year('now'),
             'passenger_capacity' => $this->faker->numberBetween(1, 11)
