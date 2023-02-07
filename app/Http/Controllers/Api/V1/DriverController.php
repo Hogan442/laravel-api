@@ -27,9 +27,9 @@ class DriverController extends Controller
         $current_page = LengthAwarePaginator::resolveCurrentPage();
         $page_length = 10;
         $current_page_results = $data->slice(($current_page-1)*$page_length, $page_length)->all();
-        // [[], [], []]
 
         $paginate_results = new LengthAwarePaginator($current_page_results, count($data), $page_length);
+
         $paginate_results->setPath('/api/drivers');
 
         return response()->success($paginate_results);

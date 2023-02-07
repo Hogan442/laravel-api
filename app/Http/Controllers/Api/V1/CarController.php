@@ -24,7 +24,7 @@ class CarController extends Controller
     {
         //
         $data = new CarCollection(Car::all());
-        return response()->success($data);
+        return response()->success($data, 200, 'All the vehicles');
     }
 
 

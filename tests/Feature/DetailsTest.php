@@ -48,7 +48,7 @@ class DetailsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    
+ 
     public function test_delete_drivers_detail() {
 
 
@@ -95,6 +95,7 @@ class DetailsTest extends TestCase
     }
 
 
+
     public function test_delete_non_existing_driver() {
 
         // Drivers details should not be deleted
@@ -110,6 +111,7 @@ class DetailsTest extends TestCase
         ]);
 
     }
+
 
 
     public function test_edit_drivers_details() {
