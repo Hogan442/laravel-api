@@ -19,6 +19,7 @@ class DetailResource extends JsonResource
             'last_name' => $this->last_name,
             'homeAddress' => $this->home_address,
             'license_type' => $this->license_type,
+            'driver_id' => $this->driver_id,
             'lastTrip' => $this->last_trip,
         ];
     }

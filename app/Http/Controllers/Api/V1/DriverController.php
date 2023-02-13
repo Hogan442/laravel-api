@@ -14,15 +14,26 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class DriverController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource..
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
 
+        $name = request()->query('name');
+
+        if($name != null) {
+            $drivers = Driver::whereHas('detail', function($query) {
+                $name = request()->query('name');
+                $query->where('first_name', 'like','%'. $name. '%');
+            })->get();
+        } else {
+
+            $drivers = Driver::all();
+        }
         
-        $drivers = Driver::all();
+
         $data = DriverResource::collection($drivers);
         $current_page = LengthAwarePaginator::resolveCurrentPage();
         $page_length = 10;

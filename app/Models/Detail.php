@@ -19,6 +19,6 @@ class Detail extends Model
     ];
 
     public function driver() {
-        return $this->belongsTo(Driver::class, 'id', 'driver_id');
+        return $this->belongsTo(Driver::class, 'driver_id', 'id');
     }
 }

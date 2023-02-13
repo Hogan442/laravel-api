@@ -50,8 +50,25 @@ class DriversApiTest extends TestCase
                 
             ]
         );
-
     }
+
+
+
+    public function test_get_drivers_by_name() {
+        $response = $this->getJson('http://127.0.0.1:8000/api/drivers?name=John');
+        $response->assertStatus(200);
+
+        $response->assertJson(
+            [
+                'status' => 'OK',
+                'success' => true,
+                'message' => "",
+                
+            ]
+        );
+    }
+
+
     public function test_get_one_driver()
     {
 
