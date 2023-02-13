@@ -33,8 +33,7 @@
         },
 
         "classmap": [
-            "tests/TestCase.php",
-            "tests/support/DatabaseMigrations.php"
+            "tests/TestCase.php"
         ]
     },
     "scripts": {
