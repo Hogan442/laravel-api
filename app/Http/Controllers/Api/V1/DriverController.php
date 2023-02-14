@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateDriverRequest;
 use App\Models\Detail;
 use App\Models\Driver;
 use App\Http\Resources\V1\DriverResource;
+use App\Models\DriverCars;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -21,20 +22,37 @@ class DriverController extends Controller
     public function index()
     {
 
-        $name = request()->query('name');
+        $request = request();
+        $name = $request->query('name');
+        $address = $request->query('address');
+        $vehicle_capacity = $request->query('vehicle_capacity');
+        $query = Driver::query()->with('driver_cars', 'detail');
 
+        
         if($name != null) {
-            $drivers = Driver::whereHas('detail', function($query) {
-                $name = request()->query('name');
+            $query = $query->whereHas('detail', function($query) use($name) {
                 $query->where('first_name', 'like','%'. $name. '%');
-            })->get();
-        } else {
+            });
 
-            $drivers = Driver::all();
+        } 
+        
+        if ($address != null) {
+            $query = $query->whereHas('detail', function($query) use($address) {
+                $query->where('home_address', 'like', '%'.$address.'%');
+            });
+        } 
+        if ($vehicle_capacity != null) {
+             $query = $query->whereHas('driver_cars', function($query) use ($vehicle_capacity) {
+                $query->whereHas('cars', function($cars) use($vehicle_capacity) {
+                    $cars->where('passenger_capacity', '=', $vehicle_capacity);
+                });
+            });
         }
+
+        $query = $query->get();
         
 
-        $data = DriverResource::collection($drivers);
+        $data = DriverResource::collection($query);
         $current_page = LengthAwarePaginator::resolveCurrentPage();
         $page_length = 10;
         $current_page_results = $data->slice(($current_page-1)*$page_length, $page_length)->all();
