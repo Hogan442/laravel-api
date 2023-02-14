@@ -28,7 +28,7 @@ class DriverController extends Controller
         $vehicle_capacity = $request->query('vehicle_capacity');
         $query = Driver::query()->with('driver_cars', 'detail');
 
-        
+
         if($name != null) {
             $query = $query->whereHas('detail', function($query) use($name) {
                 $query->where('first_name', 'like','%'. $name. '%');
@@ -49,19 +49,10 @@ class DriverController extends Controller
             });
         }
 
-        $query = $query->get();
-        
-
+        $query = $query->paginate(10);
         $data = DriverResource::collection($query);
-        $current_page = LengthAwarePaginator::resolveCurrentPage();
-        $page_length = 10;
-        $current_page_results = $data->slice(($current_page-1)*$page_length, $page_length)->all();
+        return response()->success($data);
 
-        $paginate_results = new LengthAwarePaginator($current_page_results, count($data), $page_length);
-
-        $paginate_results->setPath('/api/drivers');
-
-        return response()->success($paginate_results);
        
     }
 
