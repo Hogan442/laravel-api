@@ -11,6 +11,7 @@ use App\Models\Car;
 use App\Models\Driver;
 use App\Http\Controllers\Controller;
 use App\Models\DriverCars;
+use Carbon\Carbon;
 
 
 class CarController extends Controller
@@ -38,6 +39,13 @@ class CarController extends Controller
             $query = $query->whereHas('driver_cars', function($driver_cars) use($service_date) {
                 $driver_cars->whereDate('last_service', '<=', $service_date);
             });
+        }
+
+
+        // ToDo
+        if($age != null) {
+            $model_year = now()->subYears($age)->year;
+            $query = $query->where('model_year', '=', $model_year);
         }
         $data = $query->paginate(10);
         $data = CarResource::collection($data);
