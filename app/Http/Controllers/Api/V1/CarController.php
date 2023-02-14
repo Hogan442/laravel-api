@@ -23,7 +23,24 @@ class CarController extends Controller
     public function index()
     {
         //
-        $data = new CarCollection(Car::all());
+
+        $query = Car::query()->with('driver_cars');
+        $make = request('make');
+        $service_date = request('service_date');
+        $age = request('age');
+
+
+        if($make != null) {
+            $query = $query->where('vehicle_make', '=', $make);
+        }
+
+        if($service_date != null) {
+            $query = $query->whereHas('driver_cars', function($driver_cars) use($service_date) {
+                $driver_cars->whereDate('last_service', '<=', $service_date);
+            });
+        }
+        $data = $query->paginate(10);
+        $data = CarResource::collection($data);
         return response()->success($data, 200, 'All the vehicles');
     }
 

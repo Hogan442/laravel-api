@@ -23,7 +23,7 @@ class CreateDriverCarsTable extends Migration
                 ->cascadeOnDelete();
             $table->string('license_plate', 7)->unique();
             $table->boolean('insured');
-            $table->dateTime('last_service')->nullable();
+            $table->date('last_service')->nullable();
             $table->timestamps();
         });
     }
