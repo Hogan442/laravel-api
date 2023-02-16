@@ -31,10 +31,6 @@ class DriverController extends Controller
         $sort_by = "first_name";
         
         $query = Driver::query()->with('driver_cars', 'detail');
-         
-        $query = $query->whereHas('detail', function($query) {
-            $query->orderBy('first_name');
-        });
         
         if($name != null) {
             $query = $query->whereHas('detail', function($query) use($name, $sort_by) {
@@ -65,6 +61,8 @@ class DriverController extends Controller
                 case 'last_name':
                     $sort_by = $sort_by_request;
                     break;
+                default:
+                    $sort_by = 'first_name';
             }
         }
 
@@ -72,8 +70,6 @@ class DriverController extends Controller
         $data = $query->sortBy('detail.'.$sort_by, SORT_REGULAR, $desc);
         $data = DriverResource::collection($data);
         return response()->success($data);
-
-       
     }
 
     
