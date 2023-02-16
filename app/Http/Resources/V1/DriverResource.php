@@ -27,6 +27,21 @@ class DriverResource extends JsonResource
             'details' => DetailResource::collection(Detail::all()->where('driver_id', '=', $this->id))->first(),
             'vehicle' => DriverCarResource::collection(DriverCars::all()->where('driver_id', $this->id))
         ];
+
+        // return [
+        //     'id' => $this->id,
+        //     'id_number' => $this->id_number,
+        //     'phone_number' => $this->phone_number,
+        //     'details' => [
+        //         "first_name" => $this->detail->first_name,
+        //         "last_name" => $this->detail->last_name,
+        //         "home_address" => $this->detail->home_address,
+        //         "license_type" => $this->detail->license_type,
+        //         "driver_id" => $this->detail->driver_id,
+        //         "last_trip" => $this->detail->last_trip
+        //     ],
+        //     'vehicle' => DriverCarResource::collection(DriverCars::all()->where('driver_id', $this->id))
+        // ];
     }
     
 }

@@ -29,6 +29,7 @@ class CarController extends Controller
         $make = request('make');
         $service_date = request('service_date');
         $age = request('age');
+        $sort_by = request('sort_by');
 
 
         if($make != null) {
@@ -47,6 +48,8 @@ class CarController extends Controller
             $model_year = now()->subYears($age)->year;
             $query = $query->where('model_year', '=', $model_year);
         }
+
+        
         $data = $query->paginate(10);
         $data = CarResource::collection($data);
         return response()->success($data, 200, 'All the vehicles');
