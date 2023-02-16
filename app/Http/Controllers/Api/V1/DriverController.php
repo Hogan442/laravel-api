@@ -55,7 +55,7 @@ class DriverController extends Controller
         }
 
         $query = $query->paginate(10);
-        $data = $query->sortBy('detail.first_name')->values()->all();
+        $data = $query->sortBy('detail.first_name');
         $data = DriverResource::collection($data);
         return response()->success($data);
 
