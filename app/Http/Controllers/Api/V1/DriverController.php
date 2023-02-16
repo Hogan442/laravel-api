@@ -25,6 +25,9 @@ class DriverController extends Controller
         $address = $request->query('address');
         $vehicle_capacity = $request->query('vehicle_capacity');
         $sort_by_request = request('sort_by');
+        $order = request('order');
+        $desc = ($order == 'desc' ? true : false);
+
         $sort_by = "first_name";
         
         $query = Driver::query()->with('driver_cars', 'detail');
@@ -54,8 +57,19 @@ class DriverController extends Controller
             });
         }
 
+        if ($order != null && $sort_by_request != null) {
+            switch($sort_by_request) {
+                case 'name':
+                    $sort_by = 'first_name';
+                    break;
+                case 'last_name':
+                    $sort_by = $sort_by_request;
+                    break;
+            }
+        }
+
         $query = $query->paginate(10);
-        $data = $query->sortBy('detail.first_name');
+        $data = $query->sortBy('detail.'.$sort_by, SORT_REGULAR, $desc);
         $data = DriverResource::collection($data);
         return response()->success($data);
 
