@@ -44,21 +44,6 @@ class  AppServiceProvider extends ServiceProvider
                 'data' => $data
             ], $status);
         });
-
-
-        Collection::macro('paginate', function($perPage, $page = null, $pageName = 'page') {
-            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
-            return new LengthAwarePaginator(
-                $this->forPage($page, $perPage), // $items
-                $this->count(),                  // $total
-                $perPage,
-                $page,
-                [                                // $options
-                    'path' => LengthAwarePaginator::resolveCurrentPath(),
-                    'pageName' => $pageName,
-                ]
-            );
-        });
         JsonResource::withoutWrapping();
     }
 
