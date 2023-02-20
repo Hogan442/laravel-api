@@ -17,10 +17,10 @@ class DetailResource extends JsonResource
         return [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'homeAddress' => $this->home_address,
+            'home_address' => $this->home_address,
             'license_type' => $this->license_type,
             'driver_id' => $this->driver_id,
-            'lastTrip' => $this->last_trip,
+            'last_trip' => $this->last_trip,
         ];
     }
 }

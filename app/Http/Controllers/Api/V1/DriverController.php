@@ -66,8 +66,18 @@ class DriverController extends Controller
             }
         }
 
-        $query = $query->paginate(10);
-        $data = $query->sortBy('detail.'.$sort_by, SORT_REGULAR, $desc);
+
+        // if ($sort_by != null) {
+
+        // }
+
+        $data = $query->orderBy(
+            Detail::select('first_name')
+                ->whereColumn('driver_id', 'drivers.id')
+                ->orderBy('first_name')
+        );
+
+        $data = $data->paginate(10);
         $data = DriverResource::collection($data);
         return response()->success($data);
     }

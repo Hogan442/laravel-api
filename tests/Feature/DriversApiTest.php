@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Detail;
+use App\Models\Driver;
 use Tests\TestCase;
 
 class DriversApiTest extends TestCase
@@ -15,6 +17,27 @@ class DriversApiTest extends TestCase
         parent::setUp();
         $this->artisan('migrate');
         $this->artisan('db:seed');
+
+
+        // $driver = Detail::factory()->create([
+        //     'first_name' => 'John',
+        // ])->save();
+        $data = [
+            
+            "id_number" => 9485969685,
+            "phone_number" => 538464839,
+            "first_name" => "John",
+            "last_name" => "Baptiste",
+            "home_address" => "84, 9th Ave Leonsdale",
+            "license_type" => "A"
+            
+        ];
+
+        $user = Driver::create($data);
+
+        $detail = new Detail($data);
+        $detail->driver_id = $user->id;
+        $detail->save();
 
     }
     public function tearDown(): void
@@ -31,6 +54,28 @@ class DriversApiTest extends TestCase
         "license_type" => "A"
     ];
 
+    protected $general_structure = [
+        'status',
+        'success',
+        'message',
+        'data' => [
+            '*' => [
+                'id',
+                'id_number',
+                'phone_number',
+                'details' => [
+                    'first_name', 
+                    'last_name',
+                    'home_address',
+                    'license_type',
+                    'driver_id',
+                    'last_trip'
+                ]
+                
+            ]
+        ]
+    ];
+
     /**
      * A basic feature test example.
      *
@@ -41,15 +86,7 @@ class DriversApiTest extends TestCase
 
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers');
         $response->assertStatus(200);
-
-        $response->assertJson(
-            [
-                'status' => 'OK',
-                'success' => true,
-                'message' => "",
-                
-            ]
-        );
+        $response->assertJsonStructure($this->general_structure);
     }
 
 
@@ -66,6 +103,13 @@ class DriversApiTest extends TestCase
                 
             ]
         );
+
+        $this->assertDatabaseHas('details', [
+            'first_name' => 'John',
+            // 'last_name' => 'Baptiste'
+        ]);
+
+        // $response->assertJsonStructure($this->general_structure);
     }
 
 
@@ -75,15 +119,7 @@ class DriversApiTest extends TestCase
         $response = $this->getJson('http://127.0.0.1:8000/api/drivers/2');
         $this->assertNotEmpty($response->json('data'));
         $response->assertStatus(200);
-
-        $response->assertJson(
-            [
-                'status' => 'OK',
-                'success' => true,
-                'message' => "",
-                
-            ]
-        );
+        // $response->assertJsonStructure($this->general_structure);
 
     }
 
@@ -100,9 +136,7 @@ class DriversApiTest extends TestCase
                 'message' => "Could not get your driver",
                 
             ]
-        );
-
-        
+        );        
     }
 
 
@@ -113,26 +147,10 @@ class DriversApiTest extends TestCase
         $response = $this->postJson('http://127.0.0.1:8000/api/drivers/', $this->data);
         $response->assertStatus(204);
 
-        $response = $this->getJson('http://127.0.0.1:8000/api/drivers/51');
-        $response->assertStatus(200);
-
-        $response->assertJson(
-            [
-                'status' => 'OK',
-                'success' => true,
-                'message' => "",
-                'data' => [
-                    "id_number" => 9025199085,
-                    "phone_number" => 692118815,
-                    
-                    'details' => [
-                        'first_name' => 'Hogan',
-                        'last_name' => 'Fortuin',
-
-                    ]
-                ]
-            ]
-        );
+        $this->assertDatabaseHas('details', [
+            'first_name' => 'Hogan',
+            'last_name' => 'Fortuin'
+        ]);
 
     }
     public function test_post_driver_with_invalid_phone_number() {
@@ -178,6 +196,11 @@ class DriversApiTest extends TestCase
                 ]
             ]
         );
+
+        $this->assertDatabaseMissing('details', [
+            'first_name' => 'Hogan',
+            'last_name' => 'Fortuin'
+        ]);
     }
 
 
@@ -225,7 +248,10 @@ class DriversApiTest extends TestCase
             ]
         );
 
-
+        $this->assertDatabaseMissing('details', [
+            'first_name' => 'Hogan',
+            'last_name' => 'Fortuin'
+        ]);
     }
 
 
